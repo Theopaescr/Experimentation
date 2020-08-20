@@ -1,3 +1,6 @@
+package br.com.mpc.experimentation.models.charactersRequest
+
+import Data
 import com.google.gson.annotations.SerializedName
 
 /*
