@@ -39,7 +39,7 @@ class MarvelAPIInterceptor: Interceptor {
 
         val url = originalHttpUrl.newBuilder()
             .addQueryParameter("ts", timestamp)
-            .addQueryParameter("apiKey", publicKey)
+            .addQueryParameter("apikey", publicKey)
             .addQueryParameter("hash", hash)
             .build()
 

@@ -3,8 +3,13 @@ package br.com.mpc.experimentation.utils.extensions
 import java.security.MessageDigest
 
 fun md5(seed: String): String {
-    val digest = MessageDigest.getInstance("MD5")
+    val bytes = MessageDigest.getInstance("MD5")
+        .digest(seed.toByteArray())
+    return bytes.toHex()
+}
 
-    digest.update(seed.toByte())
-    return digest.digest().toString()
+fun ByteArray.toHex(): String {
+    return joinToString("") {
+        "%02x".format(it)
+    }
 }

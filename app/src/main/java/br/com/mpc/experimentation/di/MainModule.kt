@@ -16,10 +16,12 @@ val mainModule = module(override = true) {
     viewModel<NotificationsViewModel> { (handle: SavedStateHandle) -> NotificationsViewModel(handle) }
     viewModel<DashboardViewModel> { (handle: SavedStateHandle) -> DashboardViewModel(handle) }
 
+    factory<HomeDispatcher> { HomeDispatcher(get()) }
+}
+
+val internetModule = module(override = true) {
     single<Retrofit> { createRetrofitInstance() }
     factory<MarvelAPIRepository> { createMarvelAPIService(get()) }
-
-    factory<HomeDispatcher> { HomeDispatcher(get()) }
 }
 
 fun createMarvelAPIService(retrofit: Retrofit): MarvelAPIRepository

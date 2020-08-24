@@ -5,23 +5,31 @@ import android.os.Bundle
 import br.com.mpc.experimentation.firebase.FirebaseRemoteConfig
 import br.com.mpc.experimentation.utils.API_PUBLIC_KEY
 import br.com.mpc.experimentation.utils.extensions.openMainActivity
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
+import kotlin.coroutines.CoroutineContext
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), CoroutineScope {
+    private val job = Job()
+    override val coroutineContext: CoroutineContext get() = job + Main
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+    }
 
-        FirebaseRemoteConfig.setConfigurations()
-
-        runBlocking {
-            delay(4000)
+    override fun onResume() {
+        super.onResume()
+        FirebaseRemoteConfig.refresh { isSuccess ->
+            if (isSuccess) openMainActivity()
+            else finishApp()
         }
+    }
 
-        val apiKey = FirebaseRemoteConfig.getString(API_PUBLIC_KEY)
-
-        if (apiKey.isEmpty()) finish()
-        else openMainActivity()
+    private fun finishApp() {
+        launch {
+            delay(4000)
+            withContext(Main){ finishApp() }
+        }
     }
 }

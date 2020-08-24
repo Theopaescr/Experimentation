@@ -21,10 +21,11 @@ class HomeViewModel(private val handle: SavedStateHandle, private val dispatcher
         val result = dispatcher.getCharacters()
         if (result.isSuccess) {
             _listOfCharacters.value = result.response
+            _isLoading.value = false
+
         } else {
             _message.value = result.errorMessage
+            _isLoading.value = false
         }
-
-        _isLoading.value = false
     }
 }

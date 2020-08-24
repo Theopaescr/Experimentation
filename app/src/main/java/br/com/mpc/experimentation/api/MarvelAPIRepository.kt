@@ -6,9 +6,9 @@ import retrofit2.http.GET
 
 interface MarvelAPIRepository {
 
-    @GET("characters/{id}/")
+    @GET("characters/{id}")
     suspend fun getCharacter(id: String): Response<Characters>
 
-    @GET("characters/")
+    @GET("http://gateway.marvel.com/v1/public/characters")
     suspend fun getCharacters(): Response<Characters>
 }

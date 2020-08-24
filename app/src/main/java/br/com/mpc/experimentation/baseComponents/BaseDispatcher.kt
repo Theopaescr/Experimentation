@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseDispatcher<T> : CoroutineScope {
@@ -38,13 +39,19 @@ abstract class BaseDispatcher<T> : CoroutineScope {
     fun <R> doRequest(
         call: suspend () -> Response<R>
     ): TreatedResponse<R> {
-        var result : TreatedResponse<R>? = null
-        runBlocking(Dispatchers.IO) {
-            val response = call.invoke()
-            result = if (response.isSuccessful) TreatedResponse(true, response = response.body())
-            else TreatedResponse(true, errorMessage = response.message())
+        try {
+
+            var result: TreatedResponse<R>? = null
+            runBlocking(Dispatchers.IO) {
+                val response = call.invoke()
+                result =
+                    if (response.isSuccessful) TreatedResponse(true, response = response.body())
+                    else TreatedResponse(false, errorMessage = response.message())
+            }
+            return result!!
+        } catch (e: Exception) {
+            return TreatedResponse(false, errorMessage = e.message.toString())
         }
-        return result!!
     }
 }
 
@@ -53,6 +60,6 @@ data class TreatedResponse<R>(
     val response: R? = null,
     val errorMessage: String? = null
 )
-
-typealias OnError = (message: String) -> Unit
-typealias OnSuccess <T> = (T) -> Unit
+//
+//typealias OnError = (message: String) -> Unit
+//typealias OnSuccess <T> = (T) -> Unit
