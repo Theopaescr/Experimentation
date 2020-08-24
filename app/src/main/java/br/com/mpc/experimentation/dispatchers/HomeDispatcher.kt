@@ -1,11 +1,14 @@
 package br.com.mpc.experimentation.dispatchers
 
 import br.com.mpc.experimentation.api.MarvelAPIRepository
-import br.com.mpc.experimentation.models.charactersRequest.Results
+import br.com.mpc.experimentation.baseComponents.BaseDispatcher
+import br.com.mpc.experimentation.baseComponents.TreatedResponse
+import br.com.mpc.experimentation.models.charactersRequest.Characters
+import br.com.mpc.experimentation.ui.home.HomeState
 
-class HomeDispatcher(private val repository: MarvelAPIRepository) {
+class HomeDispatcher(private val repository: MarvelAPIRepository) : BaseDispatcher<HomeState>() {
 
-    suspend fun getCharacters(): List<Results> {
-        return repository.getCharacters().body()!!.data.results
+    fun getCharacters(): TreatedResponse<Characters> {
+        return doRequest { repository.getCharacters() }
     }
 }

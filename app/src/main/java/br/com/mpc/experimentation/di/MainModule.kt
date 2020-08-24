@@ -2,6 +2,7 @@ package br.com.mpc.experimentation.di
 
 import androidx.lifecycle.SavedStateHandle
 import br.com.mpc.experimentation.api.MarvelAPIRepository
+import br.com.mpc.experimentation.dispatchers.HomeDispatcher
 import br.com.mpc.experimentation.ui.dashboard.DashboardViewModel
 import br.com.mpc.experimentation.ui.home.HomeViewModel
 import br.com.mpc.experimentation.ui.notifications.NotificationsViewModel
@@ -11,12 +12,14 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val mainModule = module(override = true) {
-    viewModel<HomeViewModel> { (handle: SavedStateHandle) -> HomeViewModel(handle) }
+    viewModel<HomeViewModel> { (handle: SavedStateHandle) -> HomeViewModel(handle, get()) }
     viewModel<NotificationsViewModel> { (handle: SavedStateHandle) -> NotificationsViewModel(handle) }
     viewModel<DashboardViewModel> { (handle: SavedStateHandle) -> DashboardViewModel(handle) }
 
     single<Retrofit> { createRetrofitInstance() }
     factory<MarvelAPIRepository> { createMarvelAPIService(get()) }
+
+    factory<HomeDispatcher> { HomeDispatcher(get()) }
 }
 
 fun createMarvelAPIService(retrofit: Retrofit): MarvelAPIRepository
