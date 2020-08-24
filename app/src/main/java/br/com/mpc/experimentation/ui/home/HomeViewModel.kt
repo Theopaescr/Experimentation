@@ -17,4 +17,12 @@ class HomeViewModel(private val handle: SavedStateHandle) : ViewModel() {
         if (count == 1) _text.value = "Texto alterado 1 vez"
         else _text.value = "Texto alterado $count vezes"
     }
+
+    fun getCharacter() {
+
+    }
+
+    fun getCharacters() {
+
+    }
 }

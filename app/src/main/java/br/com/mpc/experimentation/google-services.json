@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "223332351567",
+    "firebase_url": "https://experimentation-cc2e9.firebaseio.com",
+    "project_id": "experimentation-cc2e9",
+    "storage_bucket": "experimentation-cc2e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223332351567:android:8c8b0021982d98859a743a",
+        "android_client_info": {
+          "package_name": "br.com.mpc.experimentation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223332351567-u49uho4m0gojpv5fftjmbatoivo5h4mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdSjFckfoXdGdyct-h-VC-6wj8YdNl0N4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223332351567-u49uho4m0gojpv5fftjmbatoivo5h4mt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
